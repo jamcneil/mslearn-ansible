@@ -1,0 +1,16 @@
+
+trigger:
+- master
+
+pool:
+  vmImage: 'ubuntu-latest'
+steps:
+- task: Ansible@0
+  inputs:
+    ansibleInterface: 'remoteMachine'
+    connectionOverSsh: 'SSH - Ansible VM'
+    playbookSourceRemoteMachine: 'agentMachine'
+    playbookRootRemoteMachine: '$(System.DefaultWorkingDirectory)'
+    playbookPathLinkedArtifactOnRemoteMachine: 'users.yml'
+    inventoriesRemoteMachine: 'noInventory'
+    args: '--private-key ~/.ssh/ansible_rsa'
